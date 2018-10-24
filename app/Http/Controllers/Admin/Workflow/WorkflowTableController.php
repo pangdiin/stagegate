@@ -21,17 +21,23 @@ class WorkflowTableController extends Controller
     			'nextsubstage_id',
     			'nextaction_id',
     			'active',
-    			])->with(['stage','substage', 'action', 'nextStage', 'nextSubStage', 'nextAction'])->get();
+    			])->with(['stage','substage', 'action', 'nextStage', 'nextSubStage', 'nextAction','currentRoleOwner', 'nextRoleOwner'])->get();
 
     	return DataTables::of($workflow)
                 ->editColumn('stage_id', function($workflow) {
                     return optional($workflow->stage)->codeAndDescription;
+                })
+                ->addColumn('current_owner', function ($workflow) {
+                    return optional($workflow->currentRoleOwner)->pluck('user_role');
                 })
                 ->editColumn('substage_id', function($workflow) {
                     return optional($workflow->substage)->codeAndDescription;
                 })
                 ->editColumn('action_id', function($workflow) {
                     return optional($workflow->action)->codeAndDescription;
+                })
+                ->addColumn('next_owner', function ($workflow) {
+                    return optional($workflow->nextRoleOwner)->pluck('user_role');
                 })
                 ->editColumn('nextstage_id', function($workflow) {
                     return optional($workflow->nextStage)->codeAndDescription;

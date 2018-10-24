@@ -4,7 +4,11 @@ namespace App\Model;
 
 use App\Model\Buildup;
 use App\Model\Category;
+use App\Model\Comment;
 use App\Model\Company;
+use App\Model\IdeaOwner;
+use App\Model\IdeaSource;
+use App\Model\Workflow;
 use Illuminate\Database\Eloquent\Model;
 
 class Idea extends Model
@@ -30,6 +34,11 @@ class Idea extends Model
     	'is_kiled',
     	'is_initial'
     ];
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 
     public function company()
     {
@@ -58,16 +67,16 @@ class Idea extends Model
 
     public function ideaSources()
     {
-    	
+    	return $this->hasMany(IdeaSource::class,'idea_id');
     }
 
     public function ideaOwners()
     {
-
+        return $this->hasMany(IdeaOwner::class,'idea_id');
     }
 
     public function workflow()
     {
-    	
+    	return $this->belongsTo(Workflow::class, 'workflow_id');
     }
 }
