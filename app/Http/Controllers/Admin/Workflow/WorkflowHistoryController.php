@@ -1,15 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Stages\Idea;
+namespace App\Http\Controllers\Admin\Workflow;
 
-use App\Http\Controllers\Controller;
-use App\Model\Buildup;
-use App\Model\Category;
-use App\Model\Company;
-use App\Model\Idea;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class IdeasController extends Controller
+class WorkflowHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +14,7 @@ class IdeasController extends Controller
      */
     public function index()
     {
-        // return view('stages.idea.index');
+        return view('backend.workflow.workflowhistory');
     }
 
     /**
@@ -28,14 +24,7 @@ class IdeasController extends Controller
      */
     public function create()
     {
-        $companies = Company::select(['id', 'name'])->get();
-        $categories = Category::select(['id', 'name'])->get();
-
-        $secs = Buildup::ofType('SEC')->get();
-        $demographics = Buildup::ofType('DEMOGRAPHICS')->get();
-        $distributions = Buildup::ofType('DISTRIBUTION')->get();
-
-        return view('stages.idea.create', compact('companies', 'categories', 'secs', 'demographics', 'distributions'));
+        //
     }
 
     /**
@@ -46,13 +35,7 @@ class IdeasController extends Controller
      */
     public function store(Request $request)
     {
-        $ideas = request('rows');
-        $comment = request('comment');
-
-        //store ideas
-        //store
-
-        return response()->json(['message'=> 'Success']);
+        //
     }
 
     /**
