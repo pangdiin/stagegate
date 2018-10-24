@@ -36,9 +36,11 @@ Category
 		                <tr>
 		                    <th>ID</th>
 		                    <th>Sort Order</th>
+                        <th>Current Owner</th>
 		                    <th>Stage</th>
 		                    <th>Substage</th>
                         <th>Action</th>
+                        <th>Next Owner</th>
                         <th>Next Stage</th>
                         <th>Next Substage</th>
                         <th>Next Action</th>
@@ -79,6 +81,9 @@ Category
                     data: 'sort_order', name: 'sort_order'
                    },
                    {
+                    data: 'current_owner', name: 'current_owner'
+                   },
+                   {
                     data: 'stage_id', name: 'stage_id'
                    },
                    {
@@ -86,6 +91,9 @@ Category
                    },
                    {
                     data: 'action_id', name: 'action_id'
+                   },
+                   {
+                    data: 'next_owner', name: 'next_owner'
                    },
                    {
                     data: 'nextstage_id', name: 'nextstage_id'
