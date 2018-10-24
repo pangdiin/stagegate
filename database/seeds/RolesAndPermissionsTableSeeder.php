@@ -54,6 +54,7 @@ class RolesAndPermissionsTableSeeder extends Seeder
        Role::create(['name' => 'president']);
        Role::create(['name' => 'aom-plant']);
        Role::create(['name' => 'satellite-head']);
+       Role::create(['name' => 'creator']);
     }
 
     public function permissions()

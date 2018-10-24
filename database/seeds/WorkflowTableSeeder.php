@@ -87,13 +87,14 @@ class WorkflowTableSeeder extends Seeder
     	$president = $this->getRole('president');
     	$aomPlant = $this->getRole('aom-plant');
     	$satelliteHead = $this->getRole('satellite-head');
+        $creator = $this->getRole('creator');
 
     	$idea = Workflow::create(['sort_order' => 1, 'stage_id' => $ST100, 'substage_id' => $ST101, 'action_id' => $XS001, 'nextstage_id' => $ST100, 'nextsubstage_id' => $ST102, 'nextaction_id' => $XS004]);
-    	$idea->currentRoleOwner()->create(['user_role' => $productAssistant]);
-    	$idea->nextRoleOwner()->create(['user_role' => $productAssistant]);
+    	$idea->currentRoleOwner()->create(['user_role' => $creator]);
+    	$idea->nextRoleOwner()->create(['user_role' => $creator]);
     	/**/
     	$scoring1 = Workflow::create(['sort_order' => 2, 'stage_id' => $ST100, 'substage_id' => $ST102, 'action_id' => $XS004, 'nextstage_id' => $ST100, 'nextsubstage_id' => $ST102, 'nextaction_id' => $XS005]);
-    	$scoring1->currentRoleOwner()->create(['user_role' => $productAssistant]);
+    	$scoring1->currentRoleOwner()->create(['user_role' => $creator]);
     	$scoring1->nextRoleOwner()->create(['user_role' => $productAssistant]);
     	/**/
     	$scoring2 = Workflow::create(['sort_order' => 3, 'stage_id' => $ST100, 'substage_id' => $ST102, 'action_id' => $XS005, 'nextstage_id' => $ST100, 'nextsubstage_id' => $ST102, 'nextaction_id' => $XS005]);

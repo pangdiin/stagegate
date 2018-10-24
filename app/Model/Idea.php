@@ -9,6 +9,7 @@ use App\Model\Company;
 use App\Model\IdeaOwner;
 use App\Model\IdeaSource;
 use App\Model\Workflow;
+use App\Model\WorkflowHistory;
 use Illuminate\Database\Eloquent\Model;
 
 class Idea extends Model
@@ -78,5 +79,10 @@ class Idea extends Model
     public function workflow()
     {
     	return $this->belongsTo(Workflow::class, 'workflow_id');
+    }
+
+    public function workflowHistory()
+    {
+        return $this->hasMany(WorkflowHistory::class, 'idea_id');
     }
 }

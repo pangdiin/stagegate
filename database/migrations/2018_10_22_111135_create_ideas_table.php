@@ -16,6 +16,7 @@ class CreateIdeasTable extends Migration
         Schema::create('ideas', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('workflow_id')->nullable();
             $table->unsignedInteger('company_id')->nullable();
             $table->unsignedInteger('category_id')->nullable();
             $table->unsignedInteger('demographic_id')->nullable();
