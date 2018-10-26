@@ -23,7 +23,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        @role('administrator')
+        {{-- @role('administrator') --}}
         
         <li class="nav-item has-treeview {{ active_class(Active::checkUriPattern('access/*'), 'menu-open') }}">
           <a href="#" class="nav-link {{ active_class(Active::checkUriPattern('access/*')) }}">
@@ -108,7 +108,7 @@
           </ul>
         </li>
 
-        @endrole
+        {{-- @endrole --}}
 
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">

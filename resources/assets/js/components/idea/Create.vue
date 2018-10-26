@@ -11,7 +11,7 @@
           <div class="table-responsive">
             <form>
                 <div class="input-group mb-3 col-3">
-                  <input type="text" class="form-control" v-model="number" placeholder="Add no. of rows">
+                  <input type="number" class="form-control" v-model="number" placeholder="Add no. of rows">
                   <span class="input-group-append">
                     <button type="button" class="btn btn-info" @click="addRow(number)">Add</button>
                   </span>
@@ -64,7 +64,7 @@
                         </select>
                       </td>
                       <td class="col-2">
-                       <select class="form-control" id="sec" v-model="row.sec">
+                       <select class="form-control" id="sec" v-model="row.sec" multiple="">
                           <option value="" selected="">Please Select</option>
                           <option :value="sec.id" v-for="sec in secs">
                             {{ sec.name }}
@@ -80,7 +80,7 @@
                         </select>
                       </td>
                       <td class="col-2">
-                       <select class="form-control" id="distribution" v-model="row.distribution">
+                       <select class="form-control" id="distribution" v-model="row.distribution" multiple="">
                           <option value="" selected="">Please Select</option>
                           <option :value="distribution.id" v-for="distribution in distributions">
                             {{ distribution.name }}
@@ -115,7 +115,12 @@
             </form>
           </div>
 
-          <comment></comment>
+          <!-- <comment></comment> -->
+
+          <div class="form-group mt-3">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" rows="3" id="comment" v-model="comment"></textarea>
+          </div>
 
           <div class="row mt-3 d-flex">
             <div class="col-3">
@@ -164,6 +169,7 @@
             return {
               selectedForSubmition:[],
               selectAll: false,
+              comment:null,
               number: null,
               rows: [
                 {
@@ -171,9 +177,9 @@
                   company:'',
                   category:'',
                   existing:'',
-                  sec:'',
+                  sec:[],
                   demographic:'',
-                  distribution:'',
+                  distribution:[],
                   product_concept:'',
                   product_description:'',
                   psychographics:'',
@@ -199,9 +205,9 @@
                   company:'',
                   category:'',
                   existing:'',
-                  sec:'',
+                  sec:[],
                   demographic:'',
-                  distribution:'',
+                  distribution:[],
                   product_concept:'',
                   product_description:'',
                   psychographics:'',
@@ -216,10 +222,11 @@
             submit() {
               axios.post('/ideas',
               {
-                rows:this.rows
+                rows:this.rows,
+                comment:this.comment,
               }
               ).then((response) => {
-                console.log(response)
+                location.reload();
               }).catch((error) => {
                 console.log('error')
               })
