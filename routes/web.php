@@ -47,6 +47,10 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function() {
 });
 
 Route::group(['namespace' => 'Stages', 'as' => 'stages.'], function() {
+	Route::get('ideas/data', 'Idea\IdeasTableController')->name('ideas.data');
 	Route::resource('ideas', 'Idea\IdeasController');
 });
+
+	// Route::get('ideas/data', 'Idea\IdeasTableController')->name('ideas.data');
+	Route::resource('assessment', 'Assessment\AssessmentController');
 

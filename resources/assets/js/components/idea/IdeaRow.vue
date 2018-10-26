@@ -30,7 +30,7 @@
 		  </select>
 		</td>
 		<td class="col-2">
-		 <select class="form-control" id="sec">
+		 <select class="form-control" id="sec" multiple="true">
 		    <option value="ps" selected="">Please Select</option>
 		    <option :value="sec.id" v-for="sec in secs">
 		      {{ sec.name }}
@@ -46,7 +46,7 @@
 		  </select>
 		</td>
 		<td class="col-2">
-		 <select class="form-control" id="distribution">
+		 <select class="form-control" id="distribution" multiple="">
 		    <option value="ps" selected="">Please Select</option>
 		    <option :value="distribution.id" v-for="distribution in distributions">
 		      {{ distribution.name }}

@@ -27,6 +27,13 @@
 
   <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('assessment.index') }}" aria-expanded="false">
+          <i class="fa fa-bell-o"></i>
+          <span class="badge badge-danger navbar-badge">4</span>
+        </a>
+      </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
           <i class="fa fa-comments-o"></i>
@@ -126,6 +133,8 @@
           </form>
         </div>
       </li>
+
+
     </ul>
 </nav>
 <!-- /.navbar -->

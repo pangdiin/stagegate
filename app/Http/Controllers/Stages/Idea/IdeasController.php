@@ -7,6 +7,7 @@ use App\Model\Buildup;
 use App\Model\Category;
 use App\Model\Company;
 use App\Model\Idea;
+use App\Model\Workflow;
 use Illuminate\Http\Request;
 
 class IdeasController extends Controller
@@ -18,7 +19,9 @@ class IdeasController extends Controller
      */
     public function index()
     {
-        // return view('stages.idea.index');
+       //ito yung lahat ng ideas kahit anong status
+
+        return view('stages.idea.index');
     }
 
     /**
@@ -46,13 +49,20 @@ class IdeasController extends Controller
      */
     public function store(Request $request)
     {
-        $ideas = request('rows');
+        $ideas = collect(request('rows'));
         $comment = request('comment');
 
-        //store ideas
-        //store
+        try {
+            
+            $ideas->each(function($row) use($comment){
+                $this->save($row, $comment);
+            });
 
-        return response()->json(['message'=> 'Success']);
+            return response()->json(['message'=> 'Success']);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -98,5 +108,43 @@ class IdeasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function save($row, $comment)
+    {
+        $row = (object) $row;
+
+        $idea = New Idea();
+        $idea->user_id = auth()->user()->id;
+        $idea->workflow_id = Workflow::first()->id;
+        $idea->company_id = $row->company;
+        $idea->category_id = $row->category;
+        $idea->demographic_id = $row->demographic;
+        $idea->existing = $row->existing == 'new' ? true : false;
+        $idea->product_concept = $row->product_concept;
+        $idea->product_description = $row->product_description;
+        $idea->psychographics = $row->psychographics;
+        $idea->opportunities = $row->opportunities;
+        $idea->retail_price = $row->retail_price;
+        $idea->competition = $row->competition;
+        $idea->is_initial = true;
+        $idea->save();
+
+        collect($row->sec)->each(function($sec) use ($idea){
+            $idea->sec()->create(['sec_id' => $sec]);
+        });
+
+        collect($row->distribution)->each(function($distribution) use ($idea){
+            $idea->distribution()->create(['distribution_id' => $distribution]);
+        });
+
+        $idea->comments()->create([
+            'user_id' => auth()->user()->id,
+            'body' => $comment,
+        ]);
+
+        $idea->ideaOwners()->create([
+            'user_id' => auth()->user()->id
+        ]);
     }
 }
