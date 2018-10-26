@@ -23,18 +23,30 @@ class CreateIdeasTable extends Migration
             $table->unsignedInteger('company_id')->nullable();
             $table->unsignedInteger('category_id')->nullable();
             $table->unsignedInteger('demographic_id')->nullable();
-            $table->unsignedInteger('sec_id')->nullable();
             $table->boolean('existing')->nullable()->default(true);
             $table->text('product_concept')->nullable();
             $table->text('product_description')->nullable();
             $table->text('psychographics')->nullable();
-            $table->text('distribution')->nullable();
             $table->text('opportunities')->nullable();
             $table->text('retail_price')->nullable();
             $table->text('competition')->nullable();
             $table->date('target_launch')->nullable();
-            $table->boolean('is_kiled')->default(false);
-            $table->boolean('is_initial')->default(false);
+            $table->boolean('is_kiled')->default(false)->nullable();
+            $table->boolean('is_initial')->default(false)->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('idea_secs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('idea_id');
+            $table->unsignedInteger('sec_id');
+            $table->timestamps();
+        });
+
+        Schema::create('idea_distributions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('idea_id');
+            $table->unsignedInteger('distribution_id');
             $table->timestamps();
         });
 

@@ -6,7 +6,9 @@ use App\Model\Buildup;
 use App\Model\Category;
 use App\Model\Comment;
 use App\Model\Company;
+use App\Model\IdeaDistribution;
 use App\Model\IdeaOwner;
+use App\Model\IdeaSec;
 use App\Model\IdeaSource;
 use App\Model\Workflow;
 <<<<<<< HEAD
@@ -25,12 +27,10 @@ class Idea extends Model
     	'company_id',
     	'category_id',
     	'demographic_id',
-    	'sec_id',
     	'existing',
     	'product_concept',
     	'product_description',
     	'psychographics',
-    	'distribution',
     	'opportunities',
     	'retail_price',
     	'competition',
@@ -61,7 +61,18 @@ class Idea extends Model
 
     public function sec()
     {
-    	return $this->belongsTo(Buildup::class, 'sec_id', 'id');
+    	return $this->hasMany(IdeaSec::class, 'idea_id')
+                    ->with(['buildup' => function ($q) {
+                       $q->select(['id','code','name','description']); 
+                    }]);
+    }
+
+    public function distribution()
+    {
+        return $this->hasMany(IdeaDistribution::class, 'idea_id')
+                    ->with(['buildup' => function ($q) {
+                       $q->select(['id','code','name','description']); 
+                    }]);;
     }
 
     public function creator()
@@ -90,5 +101,24 @@ class Idea extends Model
     {
         return $this->hasMany(WorkflowHistory::class, 'idea_id');
 >>>>>>> guill
+    }
+
+    public function currentOwner()
+    {
+        $users = [];
+
+        foreach($this->ideaOwners as $owner) {
+            array_push($users,$owner->user->fullName);
+        }
+
+        return $users;
+    }
+
+    public function actions()
+    {
+        $actions['show'] = ['type' => 'show',      'link' => route('stages.ideas.show', $this)];
+        $actions['edit'] = ['type' => 'edit',      'link' => route('stages.ideas.edit', $this)];
+        
+        return $actions;
     }
 }
